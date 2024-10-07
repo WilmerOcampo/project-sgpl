@@ -1,0 +1,13 @@
+package com.wo.reservationservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SgplReservationServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SgplReservationServiceApplication.class, args);
+    }
+
+}
