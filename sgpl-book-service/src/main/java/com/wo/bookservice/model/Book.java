@@ -36,7 +36,7 @@ public class Book extends Base {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @Column(name = "category_ids")
+    @Column(name = "category_id")
     private Long categoryId;
 
 }

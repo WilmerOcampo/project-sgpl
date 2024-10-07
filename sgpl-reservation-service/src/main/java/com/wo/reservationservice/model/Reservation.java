@@ -13,6 +13,7 @@ public class Reservation extends Base {
 
     @Column(name = "reserve_cod", length = 8, nullable = false)
     private String title;
+    //  RES0001
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
