@@ -21,7 +21,6 @@ CREATE TABLE users(
     email VARCHAR(50),
     password VARCHAR(20),
     rol INT,
-	CONSTRAINT FK_user_roles FOREIGN KEY (rol) REFERENCES roles (id),
     is_active BOOLEAN DEFAULT TRUE
 );
 
@@ -40,7 +39,6 @@ CREATE TABLE books(
     front_page VARCHAR(255),
     stock INT,
     category INT,
-    CONSTRAINT FK_books_category FOREIGN KEY (category) REFERENCES categories (id),
     is_active BOOLEAN DEFAULT TRUE
 );
 
@@ -51,18 +49,14 @@ CREATE TABLE loans(
     return_date_real DATETIME,
     estatus ENUM ("Active","Finalized") DEFAULT "Active",
     user INT,
-    book INT,
-    CONSTRAINT FK_loans_user FOREIGN KEY (user) REFERENCES users (id),
-    CONSTRAINT FK_loans_book FOREIGN KEY (book) REFERENCES books (id)
+    book INT
 );
 
 CREATE TABLE reservations(
-	id INT PRIMARY KEY AUTO_INCREMENT,
+	id CHAR(8) PRIMARY KEY,
     reserve_date DATETIME,
     reserve_code INT,
     state ENUM ("Active","Canceled","Finalized") DEFAULT "Active",
     user INT,
-    book INT,
-    CONSTRAINT FK_reservation_user FOREIGN KEY (user) REFERENCES users (id),
-    CONSTRAINT FK_reservation_book FOREIGN KEY (book) REFERENCES books (id)
+    book INT
 );
