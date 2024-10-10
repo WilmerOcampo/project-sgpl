@@ -24,11 +24,8 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public Reservation createReservation(Reservation reservation) {
 
-        Long count = reservationRepository.count();
-        long nextNumber = count + 1;
-        String generatedCode = String.format("RES%05d", nextNumber);
-
-        reservation.setReserveCod(generatedCode);
+        String reserveCode = generateReserveCode();
+        reservation.setReserveCod(reserveCode);
         reservation.setReserveDate(LocalDateTime.now());
         reservation.setStatus(EReservation.ACTIVO);
 
@@ -39,23 +36,33 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public void cancelReservation(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        if (reservation.isPresent()) {
-            Reservation res = reservation.get();
-            res.setStatus(EReservation.CANCELADO);
-            reservationRepository.save(res);
-        }
+        updateReservationStatus(id, EReservation.CANCELADO);
     }
 
     @Override
     public void finalizeReservation(Long id) {
-        Optional<Reservation> reservation = reservationRepository.findById(id);
-        if (reservation.isPresent()) {
-            Reservation res = reservation.get();
-            res.setStatus(EReservation.FINALIZADO);
-            reservationRepository.save(res);
+        updateReservationStatus(id, EReservation.FINALIZADO);
+    }
+
+    private String generateReserveCode() {
+        //Long count = reservationRepository.count();
+        //return String.format("RES%05d", count + 1);
+        return "RES" + String.format("%05d", (int) (Math.random() * 99999));
+    }
+
+    public class ReservationNotFoundException extends RuntimeException {
+        public ReservationNotFoundException(Long id) {
+            super("Reserva con ID " + id + " no encontrada");
         }
     }
+
+    private void updateReservationStatus(Long id, EReservation status) {
+        Reservation reservation = reservationRepository.findById(id)
+                .orElseThrow(() -> new ReservationNotFoundException(id));
+        reservation.setStatus(status);
+        reservationRepository.save(reservation);
+    }
+
 }
 
 
