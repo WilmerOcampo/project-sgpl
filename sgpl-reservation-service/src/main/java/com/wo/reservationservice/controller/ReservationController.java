@@ -22,22 +22,21 @@ public class ReservationController {
         return ResponseEntity.ok(reservations);
     }
 
-    @GetMapping("/generate")
-    @PostMapping
+    @PostMapping("/generate")
     public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
         Reservation createdReservation = reservationService.createReservation(reservation);
         return ResponseEntity.ok(createdReservation);
     }
 
-    @PutMapping("/cancel/{id}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
-        reservationService.cancelReservation(id);
+    @PutMapping("/cancel/{id}/{userId}")
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long id, @PathVariable Long userId) {
+        reservationService.cancelReservation(id, userId);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/finalize/{id}")
-    public ResponseEntity<Void> finalizeReservation(@PathVariable Long id) {
-        reservationService.finalizeReservation(id);
+    @PutMapping("/finalize/{id}/{userId}")
+    public ResponseEntity<Void> finalizeReservation(@PathVariable Long id, @PathVariable Long userId) {
+        reservationService.finalizeReservation(id, userId);
         return ResponseEntity.ok().build();
     }
 }

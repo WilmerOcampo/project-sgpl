@@ -28,20 +28,19 @@ public class ReservationServiceImpl implements IReservationService {
         reservation.setReserveCod(reserveCode);
         reservation.setReserveDate(LocalDateTime.now());
         reservation.setStatus(EReservation.ACTIVO);
-
         //reservation.setCreatedBy(Long.valueOf("2"));
 
         return reservationRepository.save(reservation);
     }
 
     @Override
-    public void cancelReservation(Long id) {
-        updateReservationStatus(id, EReservation.CANCELADO);
+    public void cancelReservation(Long id, Long userId) {
+        updateReservationStatus(id, EReservation.CANCELADO, userId);
     }
 
     @Override
-    public void finalizeReservation(Long id) {
-        updateReservationStatus(id, EReservation.FINALIZADO);
+    public void finalizeReservation(Long id, Long userId) {
+        updateReservationStatus(id, EReservation.FINALIZADO, userId);
     }
 
     private String generateReserveCode() {
@@ -56,10 +55,11 @@ public class ReservationServiceImpl implements IReservationService {
         }
     }
 
-    private void updateReservationStatus(Long id, EReservation status) {
+    private void updateReservationStatus(Long id, EReservation status, Long userId) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new ReservationNotFoundException(id));
         reservation.setStatus(status);
+        reservation.setUpdatedBy(userId);
         reservationRepository.save(reservation);
     }
 

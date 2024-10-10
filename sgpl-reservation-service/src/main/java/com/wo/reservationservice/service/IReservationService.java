@@ -11,8 +11,8 @@ public interface IReservationService {
 
     Reservation createReservation(Reservation reservation);
 
-    void cancelReservation(Long id);
+    void cancelReservation(Long id, Long userId);
 
-    void finalizeReservation(Long id);
+    void finalizeReservation(Long id, Long userId);
 }
 
