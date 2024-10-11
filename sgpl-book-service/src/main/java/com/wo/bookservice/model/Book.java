@@ -1,16 +1,21 @@
 package com.wo.bookservice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "books")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Book extends Base {
+public class Book extends AuditableEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
 
     @Column(name = "title", length = 200, nullable = false)
     private String title;
