@@ -1,19 +1,26 @@
-package com.wo.authservice.model;
+package com.wo.authservice.persistence.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class User extends Identifier {
+public class User extends AuditableEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
 
     @Column(length = 8, nullable = false, unique = true)
     private String dni;
@@ -26,7 +33,6 @@ public class User extends Identifier {
 
     @Column(length = 254, nullable = false, unique = true)
     @Email(message = "Email should be valid")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$", message = "Email format is invalid")
     private String email;
 
     @Column(length = 30, nullable = false, unique = true)
@@ -36,7 +42,9 @@ public class User extends Identifier {
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    private boolean active = true;
+
+    @Transient
+    private Set<String> roles = new HashSet<>();
 
 }

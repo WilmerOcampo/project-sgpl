@@ -5,11 +5,23 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/auth_db
     username: root
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+# JWT authentication
+security:
+  jwt:
+    key: fdf06b39b64bead183bcb160098e01c455c2ffab38bc51d5c232d60e1c1f1022
+    user: SGPL
+    time: 3600000
+
 server:
-  port: 8081
+  port: 9090
+#debug: true
