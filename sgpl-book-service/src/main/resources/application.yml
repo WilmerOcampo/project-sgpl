@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/book_db
     username: root
-    password: Por100pr3
+    password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 server:
