@@ -1,6 +1,5 @@
 package com.wo.bookservice.controller;
 
-import com.wo.bookservice.model.Book;
 import com.wo.bookservice.model.Category;
 import com.wo.bookservice.service.ICategoryService;
 import lombok.RequiredArgsConstructor;
