@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AuditUsername implements AuditorAware<Long> {
+public class AuditableUserId implements AuditorAware<Long> {
 
     @Override
     @NonNull

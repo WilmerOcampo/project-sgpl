@@ -4,27 +4,31 @@ import com.wo.reservationservice.model.enums.EReservation;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "books")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class Reservation extends Base {
+public class Reservation extends AuditableEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
 
     @Column(name = "reserve_cod", length = 8, nullable = false)
-    private String ReserveCod; //title;
-    //  RES0001
-
-    @Column(name = "reserve_date", nullable = false)
-    private LocalDateTime reserveDate; // Fecha de la reserva
+    private String ReserveCod;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private EReservation status;
 
-    @Column(name = "user_ids")
+    @Column(name = "user_id")
     private Long userId;
 
 }

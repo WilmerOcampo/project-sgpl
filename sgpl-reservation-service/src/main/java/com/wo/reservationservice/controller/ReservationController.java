@@ -2,6 +2,7 @@ package com.wo.reservationservice.controller;
 
 import com.wo.reservationservice.model.Reservation;
 import com.wo.reservationservice.model.enums.EReservation;
+import com.wo.reservationservice.payload.response.ReservationResponse;
 import com.wo.reservationservice.service.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/reservation")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ReservationController {
 
+    private final IReservationService reservationService;
+
     @Autowired
-    private IReservationService reservationService;
+    public ReservationController(IReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Reservation>> getAllReservations() {
+        List<Reservation> reservations = reservationService.findAll();
+        return ResponseEntity.ok(reservations);
+    }
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Reservation>> getReservationsByStatus(@PathVariable EReservation status) {
@@ -23,25 +35,21 @@ public class ReservationController {
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        Reservation createdReservation = reservationService.createReservation(reservation);
-        return ResponseEntity.ok(createdReservation);
+    public ResponseEntity<ReservationResponse> createReservation(@RequestBody Reservation reservation) {
+        ReservationResponse response = reservationService.createReservation(reservation);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/cancel/{id}/{userId}")
-    public ResponseEntity<Void> cancelReservation(@PathVariable Long id, @PathVariable Long userId) {
-        reservationService.cancelReservation(id, userId);
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
+        reservationService.cancelReservation(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/finalize/{id}/{userId}")
-    public ResponseEntity<Void> finalizeReservation(@PathVariable Long id, @PathVariable Long userId) {
-        reservationService.finalizeReservation(id, userId);
+    @PutMapping("/finalize/{id}")
+    public ResponseEntity<Void> finalizeReservation(@PathVariable Long id) {
+        reservationService.finalizeReservation(id);
         return ResponseEntity.ok().build();
     }
+
 }
-
-
-
-
-

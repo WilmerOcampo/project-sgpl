@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface IReservationRepository extends JpaRepository<Reservation, Long> {
-    List<Reservation> findByStatus(EReservation status);
-}
 
+    List<Reservation> findByStatus(EReservation status);
+
+}
