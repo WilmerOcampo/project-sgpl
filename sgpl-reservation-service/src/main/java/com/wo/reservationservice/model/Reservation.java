@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "books")
+@Table(name = "reservations")
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
