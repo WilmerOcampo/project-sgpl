@@ -11,7 +11,12 @@ import java.time.LocalDateTime;
 @Table(name = "loans")
 @Getter
 @Setter
-public class Loan extends Base {
+public class Loan extends AuditableEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "return_date_approx")
