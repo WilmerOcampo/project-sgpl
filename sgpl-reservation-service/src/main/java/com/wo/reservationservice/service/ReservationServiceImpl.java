@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationServiceImpl implements IReservationService {
@@ -28,6 +29,11 @@ public class ReservationServiceImpl implements IReservationService {
     @Override
     public List<Reservation> getReservationsByStatus(EReservation status) {
         return reservationRepository.findByStatus(status);
+    }
+
+    @Override
+    public Optional<Reservation> findByReserveCod(String reserveCod) {
+        return reservationRepository.findByReserveCod(reserveCod);
     }
 
     @Override

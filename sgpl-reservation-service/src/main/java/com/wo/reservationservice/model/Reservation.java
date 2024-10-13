@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Entity
 @Table(name = "reservations")
 @EntityListeners(AuditingEntityListener.class)
@@ -22,7 +19,7 @@ public class Reservation extends AuditableEntity {
     private Long id;
 
     @Column(name = "reserve_cod", length = 8, nullable = false)
-    private String ReserveCod;
+    private String reserveCod;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
