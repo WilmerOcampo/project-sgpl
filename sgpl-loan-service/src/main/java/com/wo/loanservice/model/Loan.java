@@ -1,4 +1,4 @@
-package com.wo.loanservice.model;
+ package com.wo.loanservice.model;
 
 import com.wo.loanservice.model.enums.ELoan;
 import jakarta.persistence.*;
