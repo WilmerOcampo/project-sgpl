@@ -1,4 +1,4 @@
-package com.wo.loanservice.service;
+package com.wo.loanservice.Service;
 
 import com.wo.loanservice.model.Loan;
 import com.wo.loanservice.model.enums.ELoan;
@@ -22,5 +22,7 @@ public interface ILoanService {
     Optional<Loan> findById(Long id);
 
     Loan generateLoan(Loan loan);
+
+    List<Loan> findLoansWithExpiredReturnDate();
 
 }

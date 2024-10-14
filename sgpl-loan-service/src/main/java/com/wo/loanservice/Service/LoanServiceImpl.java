@@ -1,4 +1,4 @@
-package com.wo.loanservice.service;
+package com.wo.loanservice.Service;
 
 import com.wo.loanservice.model.Loan;
 import com.wo.loanservice.model.enums.ELoan;
@@ -45,6 +45,11 @@ public class LoanServiceImpl implements ILoanService {
     @Override
     public Loan generateLoan(Loan loan) {
         return loanRepository.save(loan);
+    }
+
+    @Override
+    public List<Loan> findLoansWithExpiredReturnDate() {
+        return loanRepository.findLoansWithExpiredReturnDate();
     }
 
     @Override
