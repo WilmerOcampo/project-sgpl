@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.net.URI;
 
@@ -15,7 +14,7 @@ import java.net.URI;
 public class HomeController {
 
     @GetMapping
-    public ResponseEntity<Void> home(RedirectAttributes redirectAttributes) {
+    public ResponseEntity<Void> home() {
         return ResponseEntity.status(302).location(URI.create("http://localhost:8081/swagger-ui/index.html")).build();
     }
 

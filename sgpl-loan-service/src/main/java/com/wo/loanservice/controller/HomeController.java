@@ -1,4 +1,4 @@
-package com.wo.authservice.web.controller;
+package com.wo.loanservice.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +15,7 @@ public class HomeController {
 
     @GetMapping
     public ResponseEntity<Void> home() {
-        return ResponseEntity.status(302).location(URI.create("http://localhost:9090/swagger-ui/index.html")).build();
+        return ResponseEntity.status(302).location(URI.create("http://localhost:8083/swagger-ui/index.html")).build();
     }
 
 }
