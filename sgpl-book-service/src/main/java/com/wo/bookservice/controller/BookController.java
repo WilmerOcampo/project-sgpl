@@ -66,7 +66,7 @@ public class BookController {
         return ResponseEntity.ok(bookService.updateActiveStatus(id, isActive));
     }
 
-    private final KafkaProducer kafkaProducer;
+    /*private final KafkaProducer kafkaProducer;
     //private final IClientService clientService;
 
     @GetMapping("/k/{id}")
@@ -79,5 +79,5 @@ public class BookController {
         kafkaProducer.sendFindByIdMessage(message);
 
         return ResponseEntity.ok("Successfully, message send to KafkaClient Producer: " + message);
-    }
+    }*/
 }
