@@ -28,4 +28,7 @@ public class Reservation extends AuditableEntity {
     @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "book_id")
+    private Long bookId;
+
 }

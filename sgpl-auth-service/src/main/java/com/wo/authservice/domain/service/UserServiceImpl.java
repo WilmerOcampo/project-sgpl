@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public OperationResponse save(RegisterUserDto userDto) {
         try {
+            if (userDto.getRoleIds().isEmpty() || userDto.getRoleIds().contains(0L)) {
+                userDto.setRoleIds(Set.of(2L));
+            }
             userDtoRepository.save(userDto);
             return new OperationResponse(UserUtil.REGISTRATION + UserUtil.SUCCESSFUL);
         } catch (ConstraintViolationException ex) {

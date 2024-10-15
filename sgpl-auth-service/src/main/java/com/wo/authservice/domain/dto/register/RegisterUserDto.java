@@ -25,7 +25,7 @@ public class RegisterUserDto {
     private String lastName;
 
     @Email(message = "Email should be valid")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$", message = "Email format is invalid")
+    //@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$", message = "Email format is invalid")
     private String email;
 
     @Size(max = 30, message = "Username must be at most 30 characters long")

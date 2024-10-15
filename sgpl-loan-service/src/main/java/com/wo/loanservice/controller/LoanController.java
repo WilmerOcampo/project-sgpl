@@ -1,9 +1,9 @@
 package com.wo.loanservice.controller;
 
 import com.wo.loanservice.model.Loan;
-import com.wo.loanservice.Service.ILoanService;
 import com.wo.loanservice.model.enums.ELoan;
 import com.wo.loanservice.payload.OperationResponse;
+import com.wo.loanservice.service.ILoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,18 +14,18 @@ import java.util.List;
 @RequestMapping("/api/loan")
 @RequiredArgsConstructor
 @CrossOrigin
-public class LoanController{
+public class LoanController {
 
     private final ILoanService loanService;
 
-    @GetMapping
-    public List<Loan> getAllLoans(){
-        return loanService.getAllLoans();
+    @GetMapping("/all")
+    public ResponseEntity<List<Loan>> getAllLoans() {
+        return ResponseEntity.ok(loanService.getAllLoans());
     }
 
-    @PostMapping
-    public Loan generateLoan(@RequestBody Loan loan){
-        return loanService.generateLoan(loan);
+    @PostMapping("/save")
+    public ResponseEntity<Loan> generateLoan(@RequestBody Loan loan) {
+        return ResponseEntity.ok(loanService.generateLoan(loan));
     }
 
     @GetMapping("/expired") //Prestamos con fecha de devolucion vencida

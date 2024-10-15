@@ -15,7 +15,7 @@ public class HomeController {
 
     @GetMapping
     public ResponseEntity<Void> home() {
-        return ResponseEntity.status(302).location(URI.create("http://localhost:8083/swagger-ui/index.html")).build();
+        return ResponseEntity.status(302).location(URI.create("http://localhost:8082/swagger-ui/index.html")).build();
     }
 
 }

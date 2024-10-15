@@ -1,4 +1,4 @@
-package com.wo.loanservice.Service;
+package com.wo.loanservice.service;
 
 import com.wo.loanservice.model.Loan;
 import com.wo.loanservice.model.enums.ELoan;
