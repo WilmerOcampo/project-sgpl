@@ -29,17 +29,17 @@ public class LoanController {
     }
 
     @GetMapping("/expired") //Prestamos con fecha de devolucion vencida
-    public List<Loan> getExpiredLoans() {
-        return loanService.findLoansWithExpiredReturnDate();
+    public ResponseEntity<List<Loan>> getExpiredLoans() {
+        return ResponseEntity.ok(loanService.findLoansWithExpiredReturnDate());
     }
 
     @GetMapping("/status/{status}") //Prestamos con estado activo o finalizado
-    public List<Loan> getLoansByStatus(@PathVariable ELoan status) {
-        return loanService.findAllByStatus(status);
+    public ResponseEntity<List<Loan>> getLoansByStatus(@PathVariable ELoan status) {
+        return ResponseEntity.ok(loanService.findAllByStatus(status));
     }
 
     @PutMapping("/finalize/{id}")
-    public OperationResponse finalizeLoan(@PathVariable Long id) {
-        return loanService.finalize(id);
+    public ResponseEntity<OperationResponse> finalizeLoan(@PathVariable Long id) {
+        return ResponseEntity.ok(loanService.finalize(id));
     }
 }
