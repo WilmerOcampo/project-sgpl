@@ -1,8 +1,13 @@
 package com.wo.reservationservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wo.reservationservice.kafka.BookResponse;
+import com.wo.reservationservice.kafka.producer.KafkaProducer;
 import com.wo.reservationservice.model.Reservation;
 import com.wo.reservationservice.model.enums.EReservation;
-import com.wo.reservationservice.payload.response.ReservationResponse;
+import com.wo.reservationservice.payload.response.ReservationCodeResponse;
+import com.wo.reservationservice.response.ReservationResponse;
 import com.wo.reservationservice.service.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +22,23 @@ import java.util.Optional;
 public class ReservationController {
 
     private final IReservationService reservationService;
+    private final KafkaProducer kafkaProducer;
 
     @Autowired
-    public ReservationController(IReservationService reservationService) {
+    public ReservationController(IReservationService reservationService, KafkaProducer kafkaProducer) {
         this.reservationService = reservationService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Reservation>> getAllReservations() {
         List<Reservation> reservations = reservationService.findAll();
+        return ResponseEntity.ok(reservations);
+    }
+
+    @GetMapping("/all2")
+    public ResponseEntity<List<ReservationResponse>> getAllReservations2() {
+        List<ReservationResponse> reservations = reservationService.findAll2();
         return ResponseEntity.ok(reservations);
     }
 
@@ -42,8 +55,8 @@ public class ReservationController {
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<ReservationResponse> createReservation(@RequestBody Reservation reservation) {
-        ReservationResponse response = reservationService.createReservation(reservation);
+    public ResponseEntity<ReservationCodeResponse> createReservation(@RequestBody Reservation reservation) {
+        ReservationCodeResponse response = reservationService.createReservation(reservation);
         return ResponseEntity.ok(response);
     }
 
@@ -59,4 +72,13 @@ public class ReservationController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/k/{id}")
+    public ResponseEntity<?> idMessage(@PathVariable Long id) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        String message = mapper.writeValueAsString(id);
+
+        kafkaProducer.sendIdMessage(message);
+
+        return ResponseEntity.ok("Successfully, message send to KafkaClient Producer: " + message);
+    }
 }

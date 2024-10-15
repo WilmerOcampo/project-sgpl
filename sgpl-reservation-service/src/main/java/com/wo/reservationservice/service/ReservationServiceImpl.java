@@ -3,8 +3,9 @@ package com.wo.reservationservice.service;
 import com.wo.reservationservice.exeption.ReservationNotFoundException;
 import com.wo.reservationservice.model.Reservation;
 import com.wo.reservationservice.model.enums.EReservation;
-import com.wo.reservationservice.payload.response.ReservationResponse;
+import com.wo.reservationservice.payload.response.ReservationCodeResponse;
 import com.wo.reservationservice.repository.IReservationRepository;
+import com.wo.reservationservice.response.ReservationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,11 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
+    public List<ReservationResponse> findAll2() {
+        return List.of();
+    }
+
+    @Override
     public List<Reservation> getReservationsByStatus(EReservation status) {
         return reservationRepository.findByStatus(status);
     }
@@ -37,11 +43,11 @@ public class ReservationServiceImpl implements IReservationService {
     }
 
     @Override
-    public ReservationResponse createReservation(Reservation reservation) {
+    public ReservationCodeResponse createReservation(Reservation reservation) {
         reservation.setReserveCod(generateReserveCode());
         reservation.setStatus(EReservation.ACTIVO);
         Reservation savedReservation = reservationRepository.save(reservation);
-        return new ReservationResponse("Código de Reserva: " + savedReservation.getReserveCod());
+        return new ReservationCodeResponse("Código de Reserva: " + savedReservation.getReserveCod());
     }
 
     @Override

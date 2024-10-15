@@ -1,11 +1,13 @@
 package com.wo.bookservice.service;
 
+import com.wo.bookservice.kafka.BookResponse;
 import com.wo.bookservice.model.Book;
 import com.wo.bookservice.respository.IBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,12 @@ public class BookServiceImpl implements IBookService {
     public Book findById(Long id) {
         return bookRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Book can't be found with id: " + id));
+    }
+
+    @Override
+    public BookResponse bookById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.map(value -> new BookResponse(value.getId(), value.getTitle())).orElse(null);
     }
 
     @Override

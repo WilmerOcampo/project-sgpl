@@ -1,5 +1,9 @@
 package com.wo.bookservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wo.bookservice.kafka.BookResponse;
+import com.wo.bookservice.kafka.KafkaProducer;
 import com.wo.bookservice.model.Book;
 import com.wo.bookservice.service.IBookService;
 import lombok.RequiredArgsConstructor;
@@ -60,5 +64,20 @@ public class BookController {
     @PutMapping("/updateActiveStatus/{id}") // Actualiza el estado activo/inactivo de un libro
     public ResponseEntity<Book> updateActiveStatus(@PathVariable Long id, @RequestParam boolean isActive) {
         return ResponseEntity.ok(bookService.updateActiveStatus(id, isActive));
+    }
+
+    private final KafkaProducer kafkaProducer;
+    //private final IClientService clientService;
+
+    @GetMapping("/k/{id}")
+    public ResponseEntity<?> findByIdMessage(@PathVariable Long id) throws JsonProcessingException {
+        BookResponse book = bookService.bookById(id);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String message = mapper.writeValueAsString(book);
+
+        kafkaProducer.sendFindByIdMessage(message);
+
+        return ResponseEntity.ok("Successfully, message send to KafkaClient Producer: " + message);
     }
 }
