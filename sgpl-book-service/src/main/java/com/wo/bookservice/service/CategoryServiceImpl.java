@@ -26,6 +26,9 @@ public class CategoryServiceImpl implements ICategoryService{
 
     @Override
     public Category save(Category category) {
+        if (category.getId() == null) {
+            category.setActive(category.isActive());
+        }
         return categoryRepository.save(category);
     }
 

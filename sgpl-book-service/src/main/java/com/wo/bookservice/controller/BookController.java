@@ -52,7 +52,7 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/activeBooks") //Lista los libros activos
+    @GetMapping("/actives") //Lista los libros activos
     public ResponseEntity<List<Book>> findActiveBooks() {
         return ResponseEntity.ok(bookService.findActiveBooks());
     }

@@ -44,7 +44,7 @@ public class CategoryController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/activeCategories") //Lista de categorias activas
+    @GetMapping("/actives") //Lista de categorias activas
     public ResponseEntity<List<Category>> findActiveCategories() {
         return ResponseEntity.ok(categoryService.findActiveCategories());
     }
