@@ -47,13 +47,13 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public List<Book> findActiveBooks() {
-        return bookRepository.findByIsActiveTrue();
+        return bookRepository.findByActiveTrue();
     }
 
     @Override
-    public Book updateActiveStatus(Long id, boolean isActive) {
+    public Book updateActiveStatus(Long id, boolean active) {
         Book book = findById(id);
-        book.setActive(isActive);
+        book.setActive(active);
         return bookRepository.save(book);
     }
 }

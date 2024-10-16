@@ -50,7 +50,7 @@ public class CategoryController {
     }
 
     @PutMapping("/updateActiveStatus/{id}") // Actualiza el estado activo/inactivo de categoria
-    public ResponseEntity<Category> updateActiveStatus(@PathVariable Long id, @RequestParam boolean isActive) {
-        return ResponseEntity.ok(categoryService.updateActiveStatus(id, isActive));
+    public ResponseEntity<Category> updateActiveStatus(@PathVariable Long id, @RequestParam boolean active) {
+        return ResponseEntity.ok(categoryService.updateActiveStatus(id, active));
     }
 }

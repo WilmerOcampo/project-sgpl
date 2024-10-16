@@ -15,5 +15,5 @@ public interface ICategoryService {
 
     List<Category> findActiveCategories();
 
-    Category updateActiveStatus(Long id, boolean isActive);
+    Category updateActiveStatus(Long id, boolean active);
 }

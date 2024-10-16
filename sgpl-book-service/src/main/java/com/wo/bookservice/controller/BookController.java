@@ -1,9 +1,5 @@
 package com.wo.bookservice.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wo.bookservice.kafka.BookResponse;
-import com.wo.bookservice.kafka.KafkaProducer;
 import com.wo.bookservice.model.Book;
 import com.wo.bookservice.service.IBookService;
 import lombok.RequiredArgsConstructor;
@@ -62,8 +58,8 @@ public class BookController {
     }
 
     @PutMapping("/updateActiveStatus/{id}") // Actualiza el estado activo/inactivo de un libro
-    public ResponseEntity<Book> updateActiveStatus(@PathVariable Long id, @RequestParam boolean isActive) {
-        return ResponseEntity.ok(bookService.updateActiveStatus(id, isActive));
+    public ResponseEntity<Book> updateActiveStatus(@PathVariable Long id, @RequestParam boolean active) {
+        return ResponseEntity.ok(bookService.updateActiveStatus(id, active));
     }
 
     /*private final KafkaProducer kafkaProducer;

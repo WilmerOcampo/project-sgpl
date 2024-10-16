@@ -19,5 +19,5 @@ public interface IBookService {
 
     List<Book> findActiveBooks();
 
-    Book updateActiveStatus(Long id, boolean isActive);
+    Book updateActiveStatus(Long id, boolean active);
 }

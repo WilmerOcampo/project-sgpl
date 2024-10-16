@@ -38,8 +38,8 @@ public class Book extends AuditableEntity {
     @Column(name = "publication_year", nullable = false)
     private int publicationYear;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "active")
+    private boolean active;
 
     @Column(name = "category_id")
     private Long categoryId;

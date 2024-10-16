@@ -20,7 +20,7 @@ public class Category extends AuditableEntity {
     @Column(name = "name", length = 60, nullable = false)
     private String name;
 
-    @Column(name = "is_active")
-    private boolean isActive;
+    @Column(name = "active")
+    private boolean active;
 
 }

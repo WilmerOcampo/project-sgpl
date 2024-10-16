@@ -39,13 +39,13 @@ public class CategoryServiceImpl implements ICategoryService{
 
     @Override
     public List<Category> findActiveCategories() {
-        return categoryRepository.findByIsActiveTrue();
+        return categoryRepository.findByActiveTrue();
     }
 
     @Override
-    public Category updateActiveStatus(Long id, boolean isActive) {
+    public Category updateActiveStatus(Long id, boolean active) {
         Category category = findById(id);
-        category.setActive(isActive);
+        category.setActive(active);
         return categoryRepository.save(category);
     }
 }

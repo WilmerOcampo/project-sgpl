@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IBookRepository extends JpaRepository<Book, Long> {
-    List<Book> findByIsActiveTrue();
+    List<Book> findByActiveTrue();
 }
