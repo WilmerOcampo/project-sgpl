@@ -7,6 +7,7 @@ import com.wo.loanservice.respository.ILoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,7 @@ public class LoanServiceImpl implements ILoanService {
                 return new OperationResponse("Could not find loan");
             }
             loan.get().setStatus(ELoan.FINALIZADO);
+            loan.get().setReturnDateReal(LocalDateTime.now());
             loanRepository.save(loan.get());
             return new OperationResponse("Loan completed successfully");
         } catch (Exception e) {

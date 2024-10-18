@@ -1,14 +1,17 @@
- package com.wo.loanservice.model;
+package com.wo.loanservice.model;
 
 import com.wo.loanservice.model.enums.ELoan;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "loans")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class Loan extends AuditableEntity {
@@ -18,9 +21,9 @@ public class Loan extends AuditableEntity {
     @Column(nullable = false)
     private Long id;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @Column(name = "return_date_approx")
-    private LocalDateTime returnDateApprox;
+    private LocalDate returnDateApprox;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "return_date_real")

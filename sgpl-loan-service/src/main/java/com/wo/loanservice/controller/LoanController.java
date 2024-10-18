@@ -23,7 +23,7 @@ public class LoanController {
         return ResponseEntity.ok(loanService.getAllLoans());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/generate")
     public ResponseEntity<Loan> generateLoan(@RequestBody Loan loan) {
         return ResponseEntity.ok(loanService.generateLoan(loan));
     }
