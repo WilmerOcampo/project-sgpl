@@ -45,6 +45,11 @@ public class LoanServiceImpl implements ILoanService {
 
     @Override
     public Loan generateLoan(Loan loan) {
+        if (loan.getStatus() == null) {
+            loan.setStatus(ELoan.ACTIVO);
+        } else if (loan.getStatus().equals(ELoan.FINALIZADO)) {
+            loan.setReturnDateReal(LocalDateTime.now());
+        }
         return loanRepository.save(loan);
     }
 
